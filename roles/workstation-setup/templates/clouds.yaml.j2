@@ -1,0 +1,13 @@
+clouds:
+  {{ osp_cloud.name }}:
+    auth:
+      auth_url: {{ osp_cloud.api_endpoint }}
+      password: {{ osp_cloud.password }}
+      project_name: admin
+      username: {{ osp_cloud.username }}
+    identity_api_version: '3.0'
+    region_name: {{ osp_cloud.region_name }}
+ansible:
+  use_hostnames: True
+  expand_hostvars: False
+  fail_on_errors: True

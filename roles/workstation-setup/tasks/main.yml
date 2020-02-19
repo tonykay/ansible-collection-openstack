@@ -1,0 +1,30 @@
+---
+- name: Install pre-requisite yum packages
+  package:
+    name: "{{ yum_packages }}"
+    state: latest
+
+- name: Install pre-requisite pip packages
+  pip:
+    name: "{{ pip_packages }}"
+    state: latest
+    extra_args: -U
+
+- name: Configure /etc/openstack/clouds.yml
+  block:
+
+    - name: Create /etc/openstack directory
+      file: 
+        path:     /etc/openstack
+        state:    directory
+
+    - name: Copy clouds.yaml
+      template:
+        src:      clouds.yaml.j2
+        dest:     /etc/openstack/clouds.yaml
+
+- name: Setup cloud-user key    
+  authorized_key: 
+    user: cloud-user
+    key: "{{ lookup('url', 'http://www.opentlc.com/download/ansible_bootcamp/openstack_keys/openstack.pub') }}"
+...

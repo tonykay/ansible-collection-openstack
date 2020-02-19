@@ -1,0 +1,12 @@
+- name: Create OSP flavors
+  os_nova_flavor:
+     cloud:   "{{ osp_cloud.name }}"
+     name:    "{{ flavor.name }}"
+     state:   "{{ flavor.state | default('present') }}"
+     ram:     "{{ flavor.ram }}"
+     vcpus:   "{{ flavor.cpu }}"
+     disk:    "{{ flavor.disk_size }}"
+  loop: "{{ osp_flavors }}"
+  loop_control:
+    loop_var: flavor
+...

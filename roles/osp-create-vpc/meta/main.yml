@@ -1,0 +1,7 @@
+---
+dependencies:
+  - role: osp-create-images
+  - role: osp-create-flavors
+  - role: osp-create-keypairs
+  - role: osp-create-security-groups
+...

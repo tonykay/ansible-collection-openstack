@@ -1,0 +1,20 @@
+- when: image.fetch_image 
+  name: Download OSP Images if required
+  get_url:
+     url:                 "{{ image.source }}"
+     dest:                "{{ image.filename }}"
+  loop: "{{ osp_images }}" 
+  loop_control:
+    loop_var: image
+
+- name: Create openstack image
+  os_image:
+     cloud:               "{{ osp_cloud.name }}"
+     name:                "{{ image.name }}"
+     container_format:    "{{ image.container_format }}"
+     disk_format:         "{{ image.disk_format | default('qcow2') }}"
+     state:               "{{ image.state | default('present') }}"
+     filename:            "{{ image.filename }}"
+  loop: "{{ osp_images }}" 
+  loop_control:
+    loop_var: image
